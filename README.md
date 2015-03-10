@@ -3,8 +3,60 @@ ezList is JS module that gives you the most out of an HTML-table.
 
 
 ## Usage
-ezList is meant to be easy to use and with minimal to not configurations needed to get a first version up and running. ezList will pretty much set up everything to work without any of the options defined (except for the control container id). However, this will lead to a bit more of a hazzle once some cosumizations are made. 
+The most basic usage of ezList is the follwowing:
 
-If the table id is not given ezList will take the first table on the page. Wether the table is given or not ezList will always take the first row inside the <thead> tag, so you must always use this tag. All items (rows) of the table will be fetched from the first <tbody> tag which gives us our second requirement.
+HTML
+````
+<div id="controlContainer"></div>
+<table>
+  <thead>
+    <tr>
+      <th >Table header 1</th>
+      <th >Table header 2</th>
+      ...
+      <th >Table header n</th>
+    </tr>
+  </thead>
+  <tbody id="ezList">
+    <tr>
+      <td >Table cell 1</td>
+      <td >Table cell 2</td>
+      ...
+      <td >Table cell n</td>
+    </tr>
+    ...
+    <tr>
+      <td >Table cell 1</td>
+      <td >Table cell 2</td>
+      ...
+      <td >Table cell n</td>
+    </tr>
+  </tbody>
+</table>
+<ul id="ezPager"></ul>
+````
+
+Javascript
+`````Javascript
+  var ezList = ezList.init({
+    controlDiv: "control",
+    filters: {
+        id: "filter1",
+        type: "text",
+        name: "Search all",
+        column: "all"
+    },
+    paginator: {
+      pageSize: 5,
+      paginatorContainer: "ezPager"
+    }
+  });
+
+`````
+
+The most important part is to remember to include the <thead> and <tbody>. ezList will parse the table and add the nessecary classes to each element in order to get the most basic functions working. The init function does the following:
+
+1. Finds the table by spplied id on opts.table or of opts.table is undefined finds the first table on the page.
+2. Sets the table header row to opts.tableHeaderId or the first row inside the <thead> tag.
 
 to be continued
