@@ -54,9 +54,45 @@ Javascript
 
 `````
 
-The most important part is to remember to include the <thead> and <tbody>. ezList will parse the table and add the nessecary classes to each element in order to get the most basic functions working. The init function does the following:
+The most important part is to remember to include the <thead> and <tbody>. ezList will parse the table and add the nessecary classes to each element in order to get the most basic functions working. 
 
-1. Finds the table by spplied id on opts.table or of opts.table is undefined finds the first table on the page.
-2. Sets the table header row to opts.tableHeaderId or the first row inside the <thead> tag.
+For more advanced usage please see the samples.
 
-to be continued
+## API
+The api documentation container the following secitons:
+
+1. Functions
+  1. ezList.init(opts)
+  2. ezList.update()
+  3. ezList.sort(column, order, sortFunction, doNotUpdate)
+  4. ezList.filter 
+  5. ezList.on
+2. opts
+
+
+## Functions
+
+#### init(opts)
+Initialises ezList. There are several parameters to pass in opts. It must be called in order to use ezList.
+
+#### update()
+Should be called whenever custom changes to the internal state of ezList is altered. Update() goes through all items and shows the items on the current page of ezPager. 
+
+#### sort(column, order, sortFunction, doNotUpdate)
+sorts the item list in ascending "asc" or descending "desc" with the given sortFunction 
+
+The sortfunction takes two argumenra (a,b) and returns a number (-infty,infty) with the following rules
+````
+ret < 0 if a < b
+ret = 0 if a equals b
+ret > 0 if a > b
+````
+The column argument is mereley there to be able to tell on callbacks what column is being sorted. E.g to add/remove classes depending on ascending/descending sorting
+
+If doNotUpdate is undefined or false it indicates that you will take responsibility on updating the ezList when the internal state is ready.
+#### filter(filter, doNotUpdate)
+Will filter each item in ezList according to the function "filter" filter returns true iff the item should be included in the list and false otherwise.
+#### on(event, func)
+
+## Options
+
