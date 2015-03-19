@@ -1,10 +1,11 @@
-if (typeof window.app === "undefined" || typeof window.app.ez.list === "undefined") {
+if (typeof window.ez === "undefined" || typeof window.ez.list === "undefined") {
 	console.error("You need to load list first");
 }
-(function(app) {
-	app.ez.paginator = (function(list, opts) {
-		var ezPageItem = "<li><a id='{0}'' class='active page' href='javascript:app.list.paginator.setPage({1})'>{2}</a></li>"
+(function(ez) {
+	ez.paginator = (function(list, opts) {
+		var ezPageItem = "<li><a id='{0}'' class='active page' href='javascript:ez.activePaginator.setPage({1})'>{2}</a></li>"
 		var self = {};
+		ez.activePaginator = self;
 		list.paginator = self;
 
 		var _getIOrMax = function(i, max) {
@@ -89,4 +90,4 @@ if (typeof window.app === "undefined" || typeof window.app.ez.list === "undefine
 
 		return self;
 	});
-})(window.app);
+})(window.ez);

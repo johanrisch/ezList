@@ -17,19 +17,17 @@ initListFilter("filterContainer");
 */
 
 // self module declaration.
-if (typeof window.app === "undefined") {
-    window.app = {};
+if (typeof window.ez === "undefined") {
+    window.ez = {};
 }
-(function(app) {
-    app.ez = {};
-    app.ez.list = (function(opts) {
+(function(ez) {
+    ez.list = function(opts) {
         // Add the dynamic style to able to hide columns.
         var myStyleElement = (document).createElement('style');
         myStyleElement.setAttribute('id', 'dynamic_style');
         $('head').append(myStyleElement);
 
         var self = {};
-
 
         /**
          * @brief Simple ezFormat function.
@@ -38,7 +36,7 @@ if (typeof window.app === "undefined") {
         String.prototype.ezFormat = function() {
             var args = arguments;
             return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function(curlyBrack, index) {
-                return ((curlyBrack == "{{") ? "{" : ((curlyBrack == "}}") ? "}" : args[index]));
+                return ((curlyBrack === "{{") ? "{" : ((curlyBrack === "}}") ? "}" : args[index]));
             });
         };
         // Production steps of ECMA-262, Edition 5, 15.4.4.17
@@ -47,7 +45,7 @@ if (typeof window.app === "undefined") {
             Array.prototype.some = function(fun /*, thisArg*/ ) {
                 'use strict';
 
-                if (this == null) {
+                if (this === null) {
                     throw new TypeError('Array.prototype.some called on null or undefined');
                 }
 
@@ -71,7 +69,7 @@ if (typeof window.app === "undefined") {
 
         Array.prototype.contains = function(obj) {
             return this.some(function(e) {
-                return e === obj
+                return e === obj;
             });
         };
 
@@ -140,7 +138,7 @@ if (typeof window.app === "undefined") {
             for (var i = 0; i < show.length; i++) {
                 self.setColumnVisiblity(show[i], true);
             }
-            for (var i = 0; i < hide.length; i++) {
+            for (i = 0; i < hide.length; i++) {
                 self.setColumnVisiblity(hide[i], false);
             }
         };
@@ -226,7 +224,7 @@ if (typeof window.app === "undefined") {
                 toggleItem.removeClass("ezToggleActive");
                 self.setColumnVisiblity(column, false);
             }
-        };
+        }
 
         /*
          * Event method to be triggered when a setItemHtml is pressed.
@@ -235,7 +233,7 @@ if (typeof window.app === "undefined") {
             var button = $(this);
             var setid = button.attr("ezFilterID");
             self.activateSet(self["set" + setid]);
-        };
+        }
 
         /*
          * Event method to be triggered when a filterItemHtml is pressed.
@@ -245,11 +243,11 @@ if (typeof window.app === "undefined") {
             var filterId = button.attr("data-ezFilterID");
             var filter = self["filter" + filterId];
             self.addNewFilter(filter);
-        };
+        }
 
         function _defined(field) {
-            return typeof field !== "undefined"
-        };
+            return typeof field !== "undefined";
+        }
 
         function _getName(item) {
             if (_defined(item.attr("name"))) {
@@ -257,7 +255,7 @@ if (typeof window.app === "undefined") {
             } else {
                 return item.text();
             }
-        };
+        }
 
         function _getColumn(item) {
             if (_defined(item.data) && _defined(item.data("column"))) {
@@ -265,7 +263,7 @@ if (typeof window.app === "undefined") {
             } else {
                 return item.index();
             }
-        };
+        }
         var _fastSort = function(ary, sortFunc) {
 
             //Adds a sequential number to each row of the array
@@ -293,29 +291,29 @@ if (typeof window.app === "undefined") {
         };
 
         var _callFilter = function(self, filter, doNotUpdate) {
-            if (typeof self["filterHook"] !== "undefined") {
-                for (var i = 0; i < self["filterHook"].length; i++) {
-                    self["filterHook"][i](self, filter, doNotUpdate);
+            if (typeof self.filterHook !== "undefined") {
+                for (var i = 0; i < self.filterHook.length; i++) {
+                    self.filterHook[i](self, filter, doNotUpdate);
                 }
             }
         };
 
         var _callSort = function(self, column, order, doNotUpdate) {
-            if (typeof self["sortHook"] !== "undefined") {
-                for (var i = 0; i < self["sortHook"].length; i++) {
-                    self["sortHook"][i](self, column, order, doNotUpdate);
+            if (typeof self.sortHook !== "undefined") {
+                for (var i = 0; i < self.sortHook.length; i++) {
+                    self.sortHook[i](self, column, order, doNotUpdate);
                 }
             }
         };
 
         var _callUpdate = function(self) {
-            if (typeof self["updateHook"] !== "undefined") {
-                for (var i = 0; i < self["updateHook"].length; i++) {
-                    self["updateHook"][i](self);
+            if (typeof self.updateHook !== "undefined") {
+                for (var i = 0; i < self.updateHook.length; i++) {
+                    self.updateHook[i](self);
                 }
             }
         };
-        /*
+        /**
          * Updates the self to make sure the representation is up to date with the internal state
          *
          *
@@ -330,13 +328,7 @@ if (typeof window.app === "undefined") {
          */
         self.update = function() {
             var items = self.items;
-           
-            self.matchingItems = [];
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].matching) {
-                    self.matchingItems.push(items[i]);
-                }
-            }
+
             if (_defined(self.paginator)) {
                 self.visibleIems = self.paginator.getPage();
             } else {
@@ -344,7 +336,7 @@ if (typeof window.app === "undefined") {
             }
             var tbody = self.table.children("tbody").first();
             tbody.empty();
-            for (var i = 0; i < self.visibleIems.length; i++) {
+            for (i = 0; i < self.visibleIems.length; i++) {
                 var item = self.visibleIems[i];
                 if (_defined(item)) {
                     tbody.append(item.element);
@@ -362,7 +354,7 @@ if (typeof window.app === "undefined") {
             if (typeof self.paginator !== "undefined") {
                 self.paginator.update();
             }
-             _callUpdate(self);
+            _callUpdate(self);
         };
         /* SORT FUNCITON
          *
@@ -373,7 +365,7 @@ if (typeof window.app === "undefined") {
          *
          */
         self.sort = function(column, order, sortFunction, doNotUpdate) {
-            
+
             var columnElement = $("[data-sort=" + column + "]").first();
             var f;
             var mult = 1;
@@ -411,9 +403,9 @@ if (typeof window.app === "undefined") {
                 }
                 return res;
             });
-            if (typeof self["endUpdate"] !== "undefined") {
-                for (var i = 0; i < self["endUpdate"].length; i++) {
-                    self["endUpdate"][i](filter, doNotUpdate);
+            if (typeof self.endUpdate !== "undefined") {
+                for (var i = 0; i < self.endUpdate.length; i++) {
+                    self.endUpdate[i](filter, doNotUpdate);
                 }
             }
             _callSort(self, column, order, doNotUpdate);
@@ -487,6 +479,7 @@ if (typeof window.app === "undefined") {
          * @return nothing.
          */
         self.filter = function(update) {
+            self.matchingItems = [];
             for (var itemIndex = 0; itemIndex < self.items.length; itemIndex++) {
                 var item = self.items[itemIndex];
                 for (var filterIndex = 0; filterIndex < self.filters.length; filterIndex++) {
@@ -497,7 +490,12 @@ if (typeof window.app === "undefined") {
                         value = $("[data-ezfilterid=" + filter.id + "]").val();
                     }
                     item.matching = filter.filter(item, value, filter.extra);
-                    if(!item.matching) break;
+                    if (!item.matching) {
+                        break;
+                    }
+                }
+                if (item.matching) {
+                    self.matchingItems.push(item);
                 }
             }
             if (typeof self.paginator !== "undefined") self.paginator.setPage(0);
@@ -513,38 +511,6 @@ if (typeof window.app === "undefined") {
             }
 
         };
-
-
-
-        /*
-                            if (filter.type === "preset") {
-                                var filterFunction = filter.filter;
-                            } else if (filter.type === "text") {
-                                var value = $("[data-ezfilterid=" + filter.id + "]").val();
-                                if (!_defined(filter.filter)) {
-                                    var columns = _getColumnsForFilter(filter);
-
-                                } else var filterFunction = filter.filter;
-                            }
-                            for (var i = 0; i < self.items.length; i++) {
-                                var item = self.items[i];
-                                if (_defined(filterFunction)) item.matching = filterFunction(item, value);
-                                else item.matching = true;
-                            }
-                        } else {
-                            for (var i = 0; i < self.items.length; i++) {
-                                var item = self.items[i];
-                                item.matching = true;
-                            }
-                        }
-                        if (typeof self["endFilter"] === "underfined") {
-                            for (var i = 0; i < self["endFilter"].length; i++) {
-                                self["endFilter"][i](filter, doNotUpdate);
-                            }
-                        }
-                        if (typeof self.paginator !== "undefined") self.paginator.setPage(0);
-                        else if (update) self.update();*/
-
 
 
         /**
@@ -644,27 +610,27 @@ if (typeof window.app === "undefined") {
             });
             self.unFilteredItems = self.items;
         }
-
+        var i = 0;
         // For each set in sets, add a set button to the toggleControlDiv.
         if (_defined(opts.sets)) {
-            for (var i = 0; i < opts.sets.length; i++) {
+            for (i = 0; i < opts.sets.length; i++) {
                 var set = opts.sets[i];
                 var setId = set.id;
-                var container = typeof set.containerId === "undefined" ? self.setControlDiv : $("#" + set.containerId);
+                var filterContainer = typeof set.containerId === "undefined" ? self.setControlDiv : $("#" + set.containerId);
                 self["set" + setId] = set;
-                container.append(self.setItemHtml.ezFormat(set.id, set.name));
+                filterContainer.append(self.setItemHtml.ezFormat(set.id, set.name));
             }
         }
         if (_defined(opts.filters)) {
-            for (var i = 0; i < opts.filters.length; i++) {
+            for (i = 0; i < opts.filters.length; i++) {
                 var filter = opts.filters[i];
                 var filterId = filter.id;
-                var container = typeof filter.containerId === "undefined" ? self.filterControlDiv : $("#" + filter.containerId);
+                var setContainer = typeof filter.containerId === "undefined" ? self.filterControlDiv : $("#" + filter.containerId);
                 self["filter" + filterId] = filter;
                 if (filter.type === "text") {
-                    container.append(self.filterTextItemHtml.ezFormat(filter.id, filter.name));
+                    setContainer.append(self.filterTextItemHtml.ezFormat(filter.id, filter.name));
                 } else {
-                    container.append(self.filterItemHtml.ezFormat(filter.id, filter.name));
+                    setContainer.append(self.filterItemHtml.ezFormat(filter.id, filter.name));
                 }
             }
         }
@@ -684,7 +650,7 @@ if (typeof window.app === "undefined") {
         self.toggleControlDiv.height(self.toggleControlDiv[0].scrollHeight);
 
         if (_defined(opts.paginator)) {
-            self.paginator = new app.ez.paginator(self, opts.paginator);
+            self.paginator = new ez.paginator(self, opts.paginator);
         }
 
 
@@ -693,9 +659,5 @@ if (typeof window.app === "undefined") {
         }
         self.update();
         return self;
-
-
-
-        return self;
-    });
-})(window.app);
+    };
+})(window.ez);

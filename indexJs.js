@@ -1,8 +1,17 @@
+/**
+ * @brief Index javascript file used to demonstrate ezList. 
+ * 
+ * 
+ * @details [long description]
+ * 
+ * @param  [description]
+ * @return [description]
+ */
 if (typeof window.app === "undefined") {
   window.app = {};
 }
 (function(app) {
-  var list = new app.ez.list({
+  var list = new ez.list({
     toggleContainerDiv: "control",
     setContainerDiv: "setControl",
     filterContainerDiv: "filterContainer",
