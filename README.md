@@ -38,7 +38,7 @@ HTML
 
 Javascript
 `````Javascript
-  var ezList = ezList.init({
+  var ezList = new ez.list({
     controlDiv: "control",
     filters: {
         id: "filter1",
