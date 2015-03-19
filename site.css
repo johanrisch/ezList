@@ -1,0 +1,72 @@
+.ezItem{
+	padding: 8px;
+	border: 1px solid coral;
+	margin-top:8px;
+	margin-right: 8px;
+	margin-left: 8px;
+	cursor: pointer;
+	float: left;
+
+}
+#control{
+}
+
+.ezToggleActive{
+	background: coral;
+}
+.ezContainer{
+	border: 1px solid #ebebeb;
+	padding:8px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+.ezContainerTitle{
+	background: white;
+	position: relative;
+	display: block;
+	width: 30%;
+	top: -18px;
+}
+.pagination{
+	margin: 0px;
+	margin-left: 16.6667%
+}
+.pagination>li>a, 
+.pagination>li>span{
+	color: coral;
+}
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover,
+.pagination>li>a:focus, 
+.pagination>li>a:hover, 
+.pagination>li>span:focus, 
+.pagination>li, 
+.active{
+	background: coral;
+	border-color: coral;
+	color: white;
+}
+
+.sort{
+	padding: 8px;
+	cursor: pointer;
+}
+.sort:hover{
+	color: coral;
+	background: #ebebeb;
+	border-radius: 5px;
+}
+
+input:focus{
+	border-color: coral;
+	outline-color: coral;
+}
+
+
+
+
+
