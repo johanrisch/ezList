@@ -60,32 +60,32 @@ if (typeof window.ez === "undefined" || typeof window.ez.list === "undefined") {
 			return ret;
 		}
 
-			list.paginator = self;
-			self.itemsPerPage = opts.pageSize;
-			self.paginatorContainer = $("#" + opts.paginatorContainer);
-			self.pager = $("#" + opts.pager);
-			self.currentPage = 0;
+		list.paginator = self;
+		self.itemsPerPage = opts.pageSize;
+		self.paginatorContainer = $("#" + opts.paginatorContainer);
+		self.pager = $("#" + opts.pager);
+		self.currentPage = 0;
 
-			if (typeof opts.leftOverflow !== "undefined") {
-				self.leftOverflow = opts.leftOverflow;
-			} else {
-				self.leftOverflow = "...";
-			}
+		if (typeof opts.leftOverflow !== "undefined") {
+			self.leftOverflow = opts.leftOverflow;
+		} else {
+			self.leftOverflow = "...";
+		}
 
-			if (typeof opts.rightOverflow !== "undefined") {
-				self.rightOverflow = opts.rightOverflow;
-			} else {
-				self.rightOverflow = "...";
-			}
+		if (typeof opts.rightOverflow !== "undefined") {
+			self.rightOverflow = opts.rightOverflow;
+		} else {
+			self.rightOverflow = "...";
+		}
 
-			if (typeof opts.pageSpan !== "undefined") {
-				self.pageSpan = opts.pageSpan;
-			} else {
-				self.pageSpan = 5;
-			}
+		if (typeof opts.pageSpan !== "undefined") {
+			self.pageSpan = opts.pageSpan;
+		} else {
+			self.pageSpan = 5;
+		}
 
-			self.update();
-			return self;
+		self.update();
+		return self;
 
 
 		return self;

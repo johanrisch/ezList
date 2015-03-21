@@ -170,8 +170,10 @@ if (typeof window.ez === "undefined") {
          * Activates the given setObject.
          */
         self.activateSet = function(set) {
-            self.setControlDiv.children(".ezSet").removeClass("ezToggleActive");
-            self.setControlDiv.children("[ezFilterID=" + set.id + "]").addClass("ezToggleActive");
+            if (_defined(set)) {
+                self.setControlDiv.children(".ezSet").removeClass("ezToggleActive");
+                self.setControlDiv.children("[ezFilterID=" + set.id + "]").addClass("ezToggleActive");
+            }
             // Filter out unwanted rows
             //self.filter();
             if (_defined(set.filter)) {
@@ -482,6 +484,7 @@ if (typeof window.ez === "undefined") {
             self.matchingItems = [];
             for (var itemIndex = 0; itemIndex < self.items.length; itemIndex++) {
                 var item = self.items[itemIndex];
+                item.matching = true;
                 for (var filterIndex = 0; filterIndex < self.filters.length; filterIndex++) {
                     var filter = self.filters[filterIndex];
                     _callFilter(self, filter, update);
@@ -609,6 +612,7 @@ if (typeof window.ez === "undefined") {
                 self.items.push(item);
             });
             self.unFilteredItems = self.items;
+            self.matchingItems = self.items;
         }
         var i = 0;
         // For each set in sets, add a set button to the toggleControlDiv.
@@ -652,11 +656,15 @@ if (typeof window.ez === "undefined") {
         if (_defined(opts.paginator)) {
             self.paginator = new ez.paginator(self, opts.paginator);
         }
-
-
         if (_defined(opts.initial)) {
             self.activateSet(opts.sets[opts.initial]);
+        } else {
+            for (var key in self.columnIndicies) {
+               self.visibility[self.columnIndicies[key]] = true;
+            }
         }
+
+
         self.update();
         return self;
     };
