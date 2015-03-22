@@ -158,7 +158,7 @@ if (typeof window.ez === "undefined") {
                 });
                 self.items.push(item);
             });
-            self.unFilteredItems = self.items;
+            self.matchingItems = self.items;
             if (typeof set === "undefined") {
                 self.update();
             } else {
@@ -393,23 +393,19 @@ if (typeof window.ez === "undefined") {
                     }
                     if (aVal.match(/^\d+/) && bVal.match(/^\d+/)) {
                         return parseFloat(aVal) < parseFloat(bVal) ? -1 : 1;
+                    } else {
+                        return aVal < bVal ? -1 : 1;
                     }
-                    return aVal < bVal ? -1 : 1;
 
                 };
             }
-            _fastSort(self.unFilteredItems, function(a, b) {
+            _fastSort(self.matchingItems, function(a, b) {
                 var res = mult * f(a, b);
                 if (res === 0) {
                     return mult * (a.index - b.index);
                 }
                 return res;
             });
-            if (typeof self.endUpdate !== "undefined") {
-                for (var i = 0; i < self.endUpdate.length; i++) {
-                    self.endUpdate[i](filter, doNotUpdate);
-                }
-            }
             _callSort(self, column, order, doNotUpdate);
             if (typeof doNotUpdate === "undefined") self.update();
         };
@@ -595,7 +591,7 @@ if (typeof window.ez === "undefined") {
 
         if (_defined(opts.items)) {
             self.items = opts.items;
-            self.unFilteredItems = self.items;
+            self.matchingItems = self.items;
 
         } else {
             self.items = [];
@@ -611,7 +607,7 @@ if (typeof window.ez === "undefined") {
                 });
                 self.items.push(item);
             });
-            self.unFilteredItems = self.items;
+            self.matchingItems = self.items;
             self.matchingItems = self.items;
         }
         var i = 0;
@@ -660,7 +656,7 @@ if (typeof window.ez === "undefined") {
             self.activateSet(opts.sets[opts.initial]);
         } else {
             for (var key in self.columnIndicies) {
-               self.visibility[self.columnIndicies[key]] = true;
+                self.visibility[self.columnIndicies[key]] = true;
             }
         }
 
