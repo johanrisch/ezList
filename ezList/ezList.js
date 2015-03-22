@@ -386,12 +386,14 @@ if (typeof window.ez === "undefined") {
                 f = sortFunction;
             } else {
                 f = function(a, b) {
-                    var aVal = a.data[column].trim().replace(/[^a-zA-z0-9\.]+/g, '').replace(/^0+/g, '').toLowerCase();
-                    var bVal = b.data[column].trim().replace(/[^a-zA-z0-9\.]+/g, '').replace(/^0+/g, '').toLowerCase();
+                    var aVal = a.data[column].trim().replace(/[^a-zA-z0-9\.,]+/g, '').replace(/^0+/g, '').toLowerCase();
+                    var bVal = b.data[column].trim().replace(/[^a-zA-z0-9\.,]+/g, '').replace(/^0+/g, '').toLowerCase();
                     if (aVal == bVal) {
                         return a.index - b.index;
                     }
                     if (aVal.match(/^\d+/) && bVal.match(/^\d+/)) {
+                        aVal.replace(",",".");
+                        bVal.replace(",",".");
                         return parseFloat(aVal) < parseFloat(bVal) ? -1 : 1;
                     } else {
                         return aVal < bVal ? -1 : 1;
